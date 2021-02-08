@@ -10,4 +10,6 @@ Run ` ng serve --proxy-config proxy.conf.json` for a dev server. Navigate to `ht
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Backend
  
+The backend of this application runs on a different server.
