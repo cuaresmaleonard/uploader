@@ -1,0 +1,61 @@
+
+<section class="mt-5">
+	<div class="card">
+	  <div class="card-body">
+
+		<h5 class="text-center">Please choose a file to upload</h5>
+		<p class="font-italic text-center">Note: You may only upload .jpg and .mp4 files</p>
+		<div *ngIf="upload_success" class="alert alert-success alert-dismissible fade show" role="alert">
+		  <strong>Success</strong> File has been uploaded 
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<form id="file-upload-form" class="text-center" [formGroup]="uploadForm" (ngSubmit)="onSubmit()" (change)="handleFileInput($event.target.files)" enctype="multipart/form-data">  
+			<div class="form-row mb-3">
+				<div class="col">
+				  <div class="custom-file">
+				    <input #file_input type="file" class="custom-file-input" id="validatedCustomFile" formControlName="file" required>
+				    <label class="custom-file-label" for="validatedCustomFile">{{ file_input.value ? file_input.value : "Choose a file.." }}</label>
+				    <div class="invalid-feedback">Example invalid custom file feedback</div>
+				  </div>
+				</div>
+
+			</div>
+			<div class="form-row mb-3">
+				<div class="col">
+					<button class="btn btn-primary btn-sm" type="submit" [disabled]="submit_btn">Submit</button>
+				</div>
+			</div>
+		</form>
+
+	  </div>
+	</div>
+
+	<div class="card mt-4">
+	  <div class="card-body" *ngIf="files.length > 0">
+	  	<h5 class="text-center">Images</h5>
+	  	<a *ngFor="let image of files" href="http://localhost:8000/uploads/{{image.filename}}" target="_blank">
+	  		<img *ngIf="image.type == 'jpg'" src="http://localhost:8000/uploads/{{image.filename}}" class="rounded float-left" alt="..." width="200" height="200">
+	  	</a>
+	  </div>
+	  <div class="card-body" *ngIf="files == 0">
+	  	No jpg uploaded
+	  </div>
+	</div>
+
+	<div class="card mt-4">
+	  <div class="card-body" *ngIf="files.length > 0">
+	  	<h5 class="text-center">Videos</h5>
+	  	<a *ngFor="let image of files" href="http://localhost:8000/uploads/{{image.filename}}" target="_blank">
+	  		<video class="vid-border" *ngIf="image.type == 'mp4'" width="350" height="240" controls>
+	  		  <source src="http://localhost:8000/uploads/{{image.filename}}" type="video/mp4">
+  		    </video>
+	  	</a>
+	  </div>
+	  <div class="card-body" *ngIf="files == 0">
+	  	No mp4 uploaded
+	  </div>
+	</div>
+
+</section>
